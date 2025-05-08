@@ -1,5 +1,4 @@
 from django.db import models
-
 #Todas as classes DEVEM ter herança de models.Model
 # Create your models here.
 
@@ -7,6 +6,9 @@ from django.db import models
 class TipoEvento(models.Model):
     #Definir os atributos
     nome = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.nome}"
        
        
 class LocalizacaoEvento(models.Model):
