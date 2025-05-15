@@ -1,0 +1,16 @@
+{% extends "paginas/index.html" %}
+
+{% load static %}
+
+{%  block conteudo   %}
+
+<h3>{{  titulo  }}</h3>
+
+<form action="" method= "Post">
+     {% csrf_token %}
+     {{ form.as_p }}
+
+     <button type="submit">Cadastrar</button>
+</form>
+
+{% endblock %}
