@@ -20,7 +20,7 @@ class TipoEventoCreate(CreateView):
 class LocalizacaoCreate(CreateView):
     template_name = 'paginas/form.html'
     model = LocalizacaoEvento
-    fields = ['nome' , 'endereco']
+    fields = ['nome' , 'endereco', 'capacidade_maxima']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Cadastrar Localização',
                      'botão' : 'Cadastrar',}
@@ -44,7 +44,7 @@ class FuncionarioCreate(CreateView):
 class EventoCreate(CreateView):
     template_name = 'paginas/form.html'
     model = Evento
-    fields = ['nome','tipoEvento', 'dataEvento']
+    fields = ['nome','tipo_evento', 'data_evento', 'descricao']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Cadastrar Evento',
                      'botão' : 'Cadastrar',}
@@ -53,7 +53,7 @@ class EventoCreate(CreateView):
 class OrcamentoCreate(CreateView):
     template_name = 'paginas/form.html'
     model = Orcamento
-    fields = ['valorPrevisto','valorReal', 'despesas']
+    fields = ['valor_previsto','valor_real', 'despesas', 'evento', 'concluido']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Cadastrar Evento',
                      'botão' : 'Cadastrar',}
@@ -73,7 +73,7 @@ class TipoEventoUpdate(UpdateView):
 class LocalizacaoUpdate(UpdateView):
     template_name = 'paginas/form.html'
     model = LocalizacaoEvento
-    fields = ['nome' , 'endereco']
+    fields = ['nome' , 'endereco', 'capacidade_maxima']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Editar Localização',
                      'botão' : 'Editar',}
@@ -98,7 +98,7 @@ class FuncionarioUpdate(UpdateView):
 class EventoUpdate(UpdateView):
     template_name = 'paginas/form.html'
     model = Evento
-    fields = ['nome','tipoEvento', 'dataEvento']
+    fields = ['nome','tipo_evento', 'data_evento', 'descricao']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Editar Evento',
                      'botão' : 'Editar',}
@@ -106,9 +106,47 @@ class EventoUpdate(UpdateView):
 class OrcamentoUpdate(UpdateView):
     template_name = 'paginas/form.html'
     model = Orcamento
-    fields = ['valorPrevisto','valorReal', 'despesas']
+    fields = ['valor_previsto','valor_real', 'despesas', 'evento', 'concluido']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Editar Evento',
                      'botão' : 'Editar',}
 
+ #####################################################################
  
+class TipoEventoDelete(DeleteView):
+    template_name = 'paginas/form.html'
+    model = TipoEvento
+    success_url = reverse_lazy('index')
+    extra_context = {'deletar':True, 'titulo': 'Deletar XXXX'}
+    
+class LocalizacaoDelete(DeleteView):
+    template_name = 'paginas/form.html'
+    model = LocalizacaoEvento
+    success_url = reverse_lazy('index')
+    extra_context = {'deletar':True, 'titulo': 'Deletar XXXX'}
+    
+    
+class PerfilDelete(DeleteView):
+    template_name = 'paginas/form.html'
+    model = Perfil
+    success_url = reverse_lazy('index')
+    extra_context = {'deletar':True, 'titulo': 'Deletar XXXX'}
+    
+class FuncionarioDelete(DeleteView):
+    template_name = 'paginas/form.html'
+    model = Funcionario
+    success_url = reverse_lazy('index')
+    extra_context = {'deletar':True, 'titulo': 'Deletar XXXX'}
+    
+class EventoDelete(DeleteView):
+    template_name = 'paginas/form.html'
+    model = Evento
+    success_url = reverse_lazy('index')
+    extra_context = {'deletar':True, 'titulo': 'Deletar XXXX'}
+    
+class OrcamentoDelete(DeleteView):
+    template_name = 'paginas/form.html'
+    model = Orcamento
+    success_url = reverse_lazy('index')
+    extra_context = {'deletar':True, 'titulo': 'Deletar XXXX'}
+    
