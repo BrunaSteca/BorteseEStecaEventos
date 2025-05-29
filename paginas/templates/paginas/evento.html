@@ -1,0 +1,31 @@
+{% extends "paginas/index.html" %}
+
+{% load static %}
+
+{%  block conteudo   %}
+
+<h3>Lista de Eventos Cadastrados</h3>
+<table>
+
+    <tr>
+        <th>Nome</th>
+        <th>Opções</th>
+    </tr>
+
+    {% for obj in object_list %}
+    <tr>
+        <td>{{ obj.nome }}</td>
+        <td>
+            <a href="#">Editar</a>
+            <a href="#">Editar</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr> 
+        <td colspan="3">Nenhum registro encontrado.</td>
+    </tr>
+
+    {% endfor %}
+</table>
+
+{% endblock %}

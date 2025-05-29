@@ -2,12 +2,13 @@
 from django.urls import path
 from .views import Inicio, SobreView
 from .views import TipoEventoCreate, LocalizacaoCreate, PerfilCreate, FuncionarioCreate, EventoCreate, OrcamentoCreate
-
 from .views import TipoEventoUpdate, LocalizacaoUpdate, PerfilUpdate, FuncionarioUpdate, EventoUpdate, OrcamentoUpdate
 from .views import TipoEventoDelete, LocalizacaoDelete, PerfilDelete, FuncionarioDelete, EventoDelete, OrcamentoDelete
+from .views import TipoEventoList
 
 urlpatterns = [
     
+    path("Listar/TipoEvento", TipoEventoList.as_view(), name="Listar Tipo Evento"),
    path("", Inicio.as_view(), name="index"), #url para página inicial
    path("sobre/", SobreView.as_view(), name="sobre"),
 
