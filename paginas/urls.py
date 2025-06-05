@@ -4,11 +4,10 @@ from .views import Inicio, SobreView
 from .views import TipoEventoCreate, LocalizacaoCreate, PerfilCreate, FuncionarioCreate, EventoCreate, OrcamentoCreate
 from .views import TipoEventoUpdate, LocalizacaoUpdate, PerfilUpdate, FuncionarioUpdate, EventoUpdate, OrcamentoUpdate
 from .views import TipoEventoDelete, LocalizacaoDelete, PerfilDelete, FuncionarioDelete, EventoDelete, OrcamentoDelete
-from .views import TipoEventoList
+from .views import TipoEventoList, LocalizacaoList, PerfilList, FuncionarioList, EventoList, OrcamentoList
 
 urlpatterns = [
     
-    path("Listar/TipoEvento", TipoEventoList.as_view(), name="Listar Tipo Evento"),
    path("", Inicio.as_view(), name="index"), #url para página inicial
    path("sobre/", SobreView.as_view(), name="sobre"),
 
@@ -36,6 +35,16 @@ urlpatterns = [
    path("deletar/funcionario/<int:pk>/", FuncionarioDelete.as_view(),  name = 'deletar-funcionario'),
    path("deletar/evento/<int:pk>/", EventoDelete.as_view(), name = 'deletar-evento'),
    path("deletar/orcamento/<int:pk>/", OrcamentoDelete.as_view(), name = 'deletar-orcamento'),
+
+   path("listar/tipo-evento/", TipoEventoList.as_view(), name = "listar-tipo-evento"),
+   path("listar/localizacao-evento/", LocalizacaoList.as_view(), name ="listar-localizacao"),
+   path("listar/perfil-evento/", PerfilList.as_view(), name ="listar-perfil"),
+   path("listar/funcionario-evento/", FuncionarioList.as_view(), name ="listar-funcionario"),
+   path("listar/evento/", EventoList.as_view(), name ="listar-evento"),
+   path("listar/orcamento-evento/", OrcamentoList.as_view(), name ="listar-orcamento"),
+   
+   
+   
 
 
 

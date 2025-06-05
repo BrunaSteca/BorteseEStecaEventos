@@ -25,6 +25,13 @@
         <td colspan="3">Nenhum registro encontrado.</td>
     </tr>
 
+    <td>
+        <a href="{% url "editar-tipo" tipo.pk %}"></a>
+        <a href="{% url "excluir-tipo" tipo.pk %}"></a>
+    </td>
+
+
+
     {% endfor %}
 </table>
 

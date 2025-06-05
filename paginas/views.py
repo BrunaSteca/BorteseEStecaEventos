@@ -124,7 +124,7 @@ class OrcamentoUpdate(UpdateView):
 class TipoEventoDelete(DeleteView):
     template_name = 'paginas/form.html'
     model = TipoEvento
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar')
     extra_context = {'deletar':True, 'titulo': 'Deletar XXXX'}
     
 class LocalizacaoDelete(DeleteView):
@@ -158,8 +158,28 @@ class OrcamentoDelete(DeleteView):
     success_url = reverse_lazy('index')
     extra_context = {'deletar':True, 'titulo': 'Deletar XXXX'}
     
-    #################################################################
+#################################################################
+
+class TipoEventoList(ListView):
+    model = TipoEvento
+    template_name = 'paginas/listas/tipo-evento.html'
     
-    class TipoEventoList(ListView):
-        model = TipoEvento
-        template_name = 'paginas/campus.html'
+class LocalizacaoList(ListView):
+    model = LocalizacaoEvento
+    template_name = 'paginas/listas/tipo-evento.html'
+
+class PerfilList(ListView):
+    model = Perfil
+    template_name = 'paginas/listas/tipo-evento.html'
+
+class FuncionarioList(ListView):
+    model = Funcionario
+    template_name = 'paginas/listas/tipo-evento.html'
+
+class EventoList(ListView):
+    model = Evento
+    template_name = 'paginas/listas/tipo-evento.html'
+
+class OrcamentoList(ListView):
+    model = Orcamento
+    template_name = 'paginas/listas/tipo-evento.html'
