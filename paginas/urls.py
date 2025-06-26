@@ -5,9 +5,29 @@ from .views import TipoEventoCreate, LocalizacaoCreate, PerfilCreate, Funcionari
 from .views import TipoEventoUpdate, LocalizacaoUpdate, PerfilUpdate, FuncionarioUpdate, EventoUpdate, OrcamentoUpdate
 from .views import TipoEventoDelete, LocalizacaoDelete, PerfilDelete, FuncionarioDelete, EventoDelete, OrcamentoDelete
 from .views import TipoEventoList, LocalizacaoList, PerfilList, FuncionarioList, EventoList, OrcamentoList
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    
+    #criar rota para página de login
+   path("login/", auth_views.LoginView.as_view(
+       template_name = 'paginas/form.html',
+       extra_context = {'titulo' : 'Autenticação',
+                         'botão' : 'Entrar',}
+      
+   ), name="login"),
+
+    #criar rota para página de login
+   path("senha/", auth_views.PasswordChangeView.as_view(
+       template_name = 'paginas/form.html',
+       extra_context = {'titulo' : 'Atualizar senha',
+                         'botão' : 'Salvar',}
+      
+   ), name="senha"),
+
+   #criar uma rota para logout
+   path("sair/", auth_views.LogoutView.as_view(), name="logout"),
+
+
    path("", Inicio.as_view(), name="index"), #url para página inicial
    path("sobre/", SobreView.as_view(), name="sobre"),
 

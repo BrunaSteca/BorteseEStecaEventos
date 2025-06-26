@@ -17,28 +17,27 @@
             <li>
                 <a href= "{% url "index" %}" > Início</a>
             </li>
-            <li>
-                <a href= "{% url "sobre" %}" > Sobre nós</a>
-            </li>
-            <li>
-                <a href= "{% url "inserir-tipo" %}" > Cadastrar o Tipo do Evento</a>
-            </li>
-            <li>
-                <a href= "{% url "inserir-localizacao" %}" >Indicar a Localização do Evento</a>
-            </li>
-             <li>
-                <a href= "{% url "inserir-perfil" %}" >Cadastre seu Perfil</a>
-            </li>
-            <li>
-                <a href= "{% url "inserir-funcionario" %}" >Cadastre o seu Perfil de Funcionário</a>
-            </li>
-            <li>
-                <a href= "{% url "inserir-evento" %}" >Cadastre o Evento Desejado</a>
-            </li>
-            <li>
-                <a href= "{% url "inserir-orcamento" %}" >Clique aqui para Realizarmos o Orçamento</a>
-            </li>
+            <li><a href= "{% url "sobre" %}" > Sobre nós</a></li>
+
+            {% if request.user.is_authenticated %}           
+            
+            <li><a href= "{% url "inserir-tipo" %}" > Cadastrar o Tipo do Evento</a></li>
+            <li><a href= "{% url "inserir-localizacao" %}" >Indicar a Localização do Evento</a></li>
+            <li><a href= "{% url "inserir-perfil" %}" >Cadastre seu Perfil</a></li>
+            <li><a href= "{% url "inserir-funcionario" %}" >Cadastre o seu Perfil de Funcionário</a></li>
+            <li><a href= "{% url "inserir-evento" %}" >Cadastre o Evento Desejado</a></li>
+            <li><a href= "{% url "inserir-orcamento" %}" >Clique aqui para Realizarmos o Orçamento</a></li>
+            
+            <li><a href= "{% url "logout" %}" >LOGOUT</a></li>
+            
+            {% else %}
+            <li><a href= "{% url "login" %}" >LOGIN</a></li>
+            {% endif %}
+
+
+
         </ul>
+
         {%  block conteudo  %}
    <h3>Página inicial<h3>
   

@@ -2,6 +2,7 @@ from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from.models import TipoEvento, LocalizacaoEvento, Perfil, Funcionario, Evento, Orcamento
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 #criação das listas
 
@@ -12,7 +13,7 @@ class Inicio(TemplateView):
 class SobreView(TemplateView):
     template_name = 'paginas/sobre.html'   
 
-class TipoEventoCreate(CreateView):
+class TipoEventoCreate(LoginRequiredMixin, CreateView):
     template_name = 'paginas/form.html'
     model = TipoEvento
     fields = ['nome']
@@ -21,7 +22,7 @@ class TipoEventoCreate(CreateView):
                      'botão' : 'Cadastrar',}
     
 
-class LocalizacaoCreate(CreateView):
+class LocalizacaoCreate(LoginRequiredMixin, CreateView):
     template_name = 'paginas/form.html'
     model = LocalizacaoEvento
     fields = ['nome' , 'endereco', 'capacidade_maxima']
@@ -30,7 +31,7 @@ class LocalizacaoCreate(CreateView):
                      'botão' : 'Cadastrar',}
     
  
-class PerfilCreate(CreateView):
+class PerfilCreate(LoginRequiredMixin, CreateView):
     template_name = 'paginas/form.html'
     model = Perfil
     fields = ['nome','cpf','telefone', 'endereco']
@@ -39,7 +40,7 @@ class PerfilCreate(CreateView):
                      'botão' : 'Cadastrar',}
     
 
-class FuncionarioCreate(CreateView):
+class FuncionarioCreate(LoginRequiredMixin, CreateView):
     template_name = 'paginas/form.html'
     model = Funcionario
     fields = ['nome','cargo']
@@ -48,7 +49,7 @@ class FuncionarioCreate(CreateView):
                      'botão' : 'Cadastrar',}
     
 
-class EventoCreate(CreateView):
+class EventoCreate(LoginRequiredMixin, CreateView):
     template_name = 'paginas/form.html'
     model = Evento
     fields = ['nome','tipo_evento', 'data_evento', 'descricao']
@@ -58,7 +59,7 @@ class EventoCreate(CreateView):
     
 
 
-class OrcamentoCreate(CreateView):
+class OrcamentoCreate(LoginRequiredMixin, CreateView):
     template_name = 'paginas/form.html'
     model = Orcamento
     fields = ['valor_previsto','valor_real', 'despesas', 'evento', 'concluido']
