@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 #Todas as classes DEVEM ter herança de models.Model
 # Create your models here.
@@ -27,6 +28,9 @@ class Perfil(models.Model):
     endereco = models.CharField(max_length = 250, verbose_name = "endereço")
     def __str__(self):
         return f"{self.nome}"
+    usuario = models.OneToOneField(
+    User, on_delete=models.CASCADE, related_name='aluno')
+
 
     #descricao = models.CharField(max_length=250)
 class Funcionario(models.Model):
