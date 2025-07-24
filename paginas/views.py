@@ -3,6 +3,9 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from.models import TipoEvento, LocalizacaoEvento, Perfil, Funcionario, Evento, Orcamento
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic.edit import CreateView
+
 
 #criação das listas
 
@@ -184,3 +187,77 @@ class EventoList(ListView):
 class OrcamentoList(ListView):
     model = Orcamento
     template_name = 'paginas/listas/tipo-evento.html'
+    
+############################################################################################################################################################
+
+class TipoEventoList(LoginRequiredMixin, ListView):
+    model = TipoEvento
+    template_name = 'tipoEvento.html'
+
+
+class LocalizacaoList(LoginRequiredMixin, ListView):
+    model = LocalizacaoEvento
+    template_name = 'localizacao.html'
+
+
+class PerfilList(LoginRequiredMixin, ListView):
+    model = Perfil
+    template_name = 'perfil.html'
+
+class FuncionarioList(LoginRequiredMixin, ListView):
+    model = Funcionario
+    template_name = 'funcionario.html'
+
+    
+class EventoList(LoginRequiredMixin, ListView):
+    model = Evento
+    template_name = 'evento.html'
+
+       
+class OrcamentoList(LoginRequiredMixin, ListView):
+    model = Orcamento
+    template_name = 'orcamento.html'
+
+#############################################################################################################################################################
+
+class TipoEventoView(SuccessMessageMixin, CreateView):
+    model = TipoEvento
+    fields = ['nome']
+    success_url = '/alunos/'
+    success_message = "Tipo do evento criado com sucesso!"
+
+
+class LocalizacaoView(SuccessMessageMixin, CreateView):
+    model = LocalizacaoEvento
+    fields = ['nome' , 'endereco', 'capacidade_maxima']
+    success_url = '/alunos/'
+    success_message = "Localização criada com sucesso!"
+
+
+class PerfilView(SuccessMessageMixin, CreateView):
+    model = Perfil
+    fields = ['nome','cpf','telefone', 'endereco']
+    success_url = '/alunos/'
+    success_message = "Perfil criado com sucesso!"
+
+class FuncionarioView(SuccessMessageMixin, CreateView):
+    model = Funcionario
+    fields = ['nome','cargo']
+    success_url = '/alunos/'
+    success_message = "Funcionario criado com sucesso!"
+
+    
+class EventoView(SuccessMessageMixin, CreateView):
+    model = Evento
+    fields = ['nome','cargo']
+    success_url = '/alunos/'
+    success_message = "Evento criado com sucesso!"
+
+       
+class OrcamentoView(SuccessMessageMixin, CreateView):
+    model = Orcamento
+    fields =  ['valor_previsto','valor_real', 'despesas', 'evento', 'concluido']
+    success_url = '/alunos/'
+    success_message = "Orçamento criado com sucesso!"
+
+
