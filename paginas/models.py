@@ -26,16 +26,16 @@ class Perfil(models.Model):
     cpf = models.CharField(max_length = 100)
     telefone = models.CharField(max_length = 100)
     endereco = models.CharField(max_length = 250, verbose_name = "endereço")
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfil')
     def __str__(self):
         return f"{self.nome}"
-    usuario = models.OneToOneField(
-    User, on_delete=models.CASCADE, related_name='aluno')
 
 
     #descricao = models.CharField(max_length=250)
 class Funcionario(models.Model):
     nome = models.CharField(max_length = 150)
     cargo = models.CharField(max_length = 150) 
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='funcionario')
     def __str__(self):
         return f"{self.nome}"
 
