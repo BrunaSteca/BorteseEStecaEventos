@@ -59,7 +59,12 @@ class EventoCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Cadastrar Evento',
                      'botão' : 'Cadastrar',}
-    
+    def form_valid(self,form):
+        form.instance.cadastrado_por = self.request.user
+        url = super().form_valid(form)
+        return url
+
+        
 
 
 class OrcamentoCreate(LoginRequiredMixin, CreateView):

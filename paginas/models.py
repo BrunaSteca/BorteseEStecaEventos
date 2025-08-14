@@ -10,6 +10,10 @@ class TipoEvento(models.Model):
 
     def __str__(self):
         return f"{self.nome}"
+    
+    class Meta:
+        ordering = ['nome']
+
        
        
 class LocalizacaoEvento(models.Model):
@@ -19,6 +23,10 @@ class LocalizacaoEvento(models.Model):
     #campus = models.ForeignKey(Campus, on_delete=models.PROTECT)
     def __str__(self):
         return f"{self.nome}"
+    
+    class Meta:
+       ordering = ['endereco']
+
        
     
 class Perfil(models.Model):
@@ -29,6 +37,9 @@ class Perfil(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfil')
     def __str__(self):
         return f"{self.nome}"
+    
+    class Meta:
+        ordering = ['nome']
 
 
     #descricao = models.CharField(max_length=250)
@@ -37,15 +48,22 @@ class Funcionario(models.Model):
     cargo = models.CharField(max_length = 150) 
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='funcionario')
     def __str__(self):
-        return f"{self.nome}"
+        return f"{self.nome} ({self.cargo})"
+    
+    class Meta:
+        ordering = ['nome', 'cargo']
 
 class Evento(models.Model):
     nome = models.CharField(max_length = 150)
     tipo_evento = models.ForeignKey(TipoEvento, on_delete=models.PROTECT)
     data_evento = models.DateTimeField()
     descricao = models.CharField(max_length = 250, verbose_name = "descrição")
+    cadastrado_por = models.ForeignKey(User, on_delete=models.PROTECT )
     def __str__(self):
-        return f"{self.nome}"
+        return f"{self.nome} ({self.data_evento})"
+    
+    class Meta:
+        ordering = ['-cadastrado_em']
 
 class Orcamento(models.Model):
     valor_previsto = models.DecimalField(max_digits=10,decimal_places=2)
@@ -55,5 +73,9 @@ class Orcamento(models.Model):
     concluido = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.valor_previsto}"
+        return f"{self.valor_previsto} ({self.valor_real})"
+    
+    class Meta:
+        ordering = ['valor_real']
 
+  
