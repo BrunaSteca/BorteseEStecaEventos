@@ -63,7 +63,7 @@ class Evento(models.Model):
         return f"{self.nome} ({self.data_evento})"
     
     class Meta:
-        ordering = ['-cadastrado_em']
+        ordering = ['-cadastrado_por']
 
 class Orcamento(models.Model):
     valor_previsto = models.DecimalField(max_digits=10,decimal_places=2)

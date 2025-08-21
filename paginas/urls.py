@@ -6,8 +6,15 @@ from .views import TipoEventoUpdate, LocalizacaoUpdate, PerfilUpdate, Funcionari
 from .views import TipoEventoDelete, LocalizacaoDelete, PerfilDelete, FuncionarioDelete, EventoDelete, OrcamentoDelete
 from .views import TipoEventoList, LocalizacaoList, PerfilList, FuncionarioList, EventoList, OrcamentoList
 from django.contrib.auth import views as auth_views
+from .views import CadastroUsuarioView
+
 
 urlpatterns = [
+
+    #criar uma rota "registrar" cadastrar novos usuários
+
+    
+    path("registrar/", CadastroUsuarioView.as_view(), name="registrar"),
     #criar rota para página de login
    path("login/", auth_views.LoginView.as_view(
        template_name = 'paginas/form.html',
