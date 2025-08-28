@@ -90,3 +90,27 @@ body > p:last-of-type {
     margin-top: 40px;
     font-style: italic;
 }
+
+/* Cor personalizada rosa vibrante */
+.bg-rosa-vibrante {
+    background-color: #ff69b4 !important;
+}
+
+.text-rosa-vibrante {
+    color: #ff69b4 !important;
+}
+
+.border-rosa-vibrante {
+    border-color: #ff69b4 !important;
+}
+
+.btn-rosa-vibrante {
+    background-color: #ff69b4;
+    color: white;
+    border: none;
+}
+
+.btn-rosa-vibrante:hover {
+    background-color: #e758a3; /* Um tom mais escuro para o hover */
+    color: white;
+}

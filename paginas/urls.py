@@ -7,6 +7,7 @@ from .views import TipoEventoDelete, LocalizacaoDelete, PerfilDelete, Funcionari
 from .views import TipoEventoList, LocalizacaoList, PerfilList, FuncionarioList, EventoList, OrcamentoList
 from django.contrib.auth import views as auth_views
 from .views import CadastroUsuarioView
+from .views import MeuEvento
 
 
 urlpatterns = [
@@ -70,9 +71,12 @@ urlpatterns = [
    path("listar/evento/", EventoList.as_view(), name ="listar-evento"),
    path("listar/orcamento-evento/", OrcamentoList.as_view(), name ="listar-orcamento"),
    
+
+   path("listar/meu-evento/", MeuEvento.as_view(), name="listar-meu-evento"),
+
    
    
 
 
-
+ 
 ]

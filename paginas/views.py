@@ -7,6 +7,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User, Group
 from .forms import UsuarioCadastroForm
+from django.shortcuts import get_object_or_404
+
 
 
 # Crie a view no final do arquivo ou em outro local que faça sentido
@@ -56,7 +58,7 @@ class LocalizacaoCreate(LoginRequiredMixin, CreateView):
     model = LocalizacaoEvento
     fields = ['nome' , 'endereco', 'capacidade_maxima']
     success_url = reverse_lazy('index')
-    extra_context = {'titulo' : 'Cadastrar Localização',
+    extra_context = {'titulo' : 'Cadastrar Localização', 
                      'botão' : 'Cadastrar',}
     
  
@@ -146,6 +148,14 @@ class EventoUpdate(UpdateView):
     extra_context = {'titulo' : 'Editar Evento',
                      'botão' : 'Editar',}
     
+    #Alterar o metodo q busca o objeto pelo ID(get_object)
+    def get_object(self, queryset =None):
+    #get_object_or_404 - busca o objeto ou retorna 404
+        obj = get_object_or_404(Evento, pk=self.kwargs['pk'], evento_por=self.request.user)
+
+        return obj
+
+
 class OrcamentoUpdate(UpdateView):
     template_name = 'paginas/form.html'
     model = Orcamento
@@ -186,6 +196,14 @@ class EventoDelete(DeleteView):
     model = Evento
     success_url = reverse_lazy('index')
     extra_context = {'deletar':True, 'titulo': 'Deletar XXXX'}
+
+     #Alterar o metodo q busca o objeto pelo ID(get_object)
+    def get_object(self, queryset =None):
+    #get_object_or_404 - busca o objeto ou retorna 404
+        obj = get_object_or_404(Evento, pk=self.kwargs['pk'], evento_por=self.request.user)
+
+        return obj
+
     
 class OrcamentoDelete(DeleteView):
     template_name = 'paginas/form.html'
@@ -243,6 +261,15 @@ class FuncionarioList(LoginRequiredMixin, ListView):
 class EventoList(LoginRequiredMixin, ListView):
     model = Evento
     template_name = 'evento.html'
+
+class MeuEvento(EventoList):
+    
+    def get_queryset(self):
+       qs = Evento.objects.filter(evento_por=self.request.user)
+       return qs
+    #Como fazer consultar/filtros no Django
+    #Classe.objects.all() #Retorna todos os objetos
+    #Classe.objects.filter(atributio=algum_valor, a2=v2)
 
        
 class OrcamentoList(LoginRequiredMixin, ListView):

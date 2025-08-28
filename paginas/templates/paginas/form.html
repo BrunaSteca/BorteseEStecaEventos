@@ -2,22 +2,29 @@
 
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% load crispy_forms_tags %}
 
-{%  block conteudo   %}
+{% block conteudo %}
 
-<h3>{{  titulo  }}</h3>
 
-<form action="" method= "Post">
-     {% csrf_token %}
+<div class="row justify-content-center">
+     <dov class="col-lg-5">
+          <h3>{{  titulo  }}</h3>
 
-     {% if deletar %}
-          <h4>Excluir o registro: {{object}}</h4>
-     {% else %}
-          {{ form.as_p }}
-     
-     {% endif %}
+          <form action="" method= "Post">
+               {% csrf_token %}
 
-     <button type="submit">Cadastrar</button>
-</form>
+               {{ form|crispy }}
+
+               {% if deletar %}
+                    <h4>Excluir o registro: {{object}}</h4>
+
+               
+               {% endif %}
+
+               <button type="submit" class="btn bnt-lg btn-rosa-vibrante">Cadastrar</button>
+          </form>
+     </dov>
+</div>
 
 {% endblock %}
