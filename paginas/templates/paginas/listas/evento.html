@@ -8,7 +8,7 @@
 <table class="table table-striped">
 
     <tr>
-        <th>Nome</th>
+        <th>Nome do Evento</th>
         <th>Opções</th>
     </tr>
 
@@ -16,8 +16,8 @@
     <tr>
         <td>{{ obj.nome }}</td>
         <td>
-            <a href="{% url "editar-tipo" tipo.pk %}" class="btn btn-sm btn-primary">Editar</a>
-            <a href="{% url "deletar-tipo" tipo.pk %}" class="btn btn-sm btn-danger">deletar</a>
+            <a href="{% url "editar-evento" obj.pk %}" class="btn btn-sm btn-primary">Editar</a>
+            <a href="{% url "deletar-evento" obj.pk %}" class="btn btn-sm btn-danger">deletar</a>
         </td>
     </tr>
     {% empty %}

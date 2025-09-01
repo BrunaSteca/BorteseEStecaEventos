@@ -41,7 +41,7 @@ class Perfil(models.Model):
     class Meta:
         ordering = ['nome']
 
-
+ 
     #descricao = models.CharField(max_length=250)
 class Funcionario(models.Model):
     nome = models.CharField(max_length = 150)

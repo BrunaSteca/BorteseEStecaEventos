@@ -4,11 +4,11 @@
 
 {%  block conteudo   %}
 
-<h3>Lista de Eventos Cadastrados</h3>
+<h3>Lista de Orçamentos Cadastrados</h3>
 <table class="table table-striped">
 
     <tr>
-        <th>Nome</th>
+        <th>Orçamentos</th>
         <th>Opções</th>
     </tr>
 
@@ -16,8 +16,8 @@
     <tr>
         <td>{{ obj.nome }}</td>
         <td>
-            <a href="{% url "editar-tipo" tipo.pk %}" class="btn btn-sm btn-primary">Editar</a>
-            <a href="{% url "deletar-tipo" tipo.pk %}" class="btn btn-sm btn-danger">deletar</a>
+            <a href="{% url "editar-orcamento" obj.pk %}" class="btn btn-sm btn-primary">Editar</a>
+            <a href="{% url "deletar-orcamento" obj.pk %}" class="btn btn-sm btn-danger">Deletar</a>
         </td>
     </tr>
     {% empty %}

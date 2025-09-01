@@ -29,9 +29,13 @@ class CadastroUsuarioView(CreateView):
         # Faz o comportamento padrão do form_valid
         url = super().form_valid(form)
         # Busca ou cria um grupo com esse nome
-        grupo, criado = Group.objects.get_or_create(name='Usuário ')
+        grupo, criado = Group.objects.get_or_create(name='Usuário')
         # Acessa o objeto criado e adiciona o usuário no grupo acima
         self.object.groups.add(grupo)
+
+        # Criar um perfil pra esse usuário
+        Perfil.objects.create(usuario = self.object)
+
         # Retorna a URL de sucesso
         return url
 
@@ -213,54 +217,54 @@ class OrcamentoDelete(DeleteView):
     
 #################################################################
 
-class TipoEventoList(ListView):
-    model = TipoEvento
-    template_name = 'paginas/listas/tipo-evento.html'
+# class TipoEventoList(ListView):
+#     model = TipoEvento
+#     template_name = 'paginas/listas/tipo-evento.html'
     
-class LocalizacaoList(ListView):
-    model = LocalizacaoEvento
-    template_name = 'paginas/listas/tipo-evento.html'
+# class LocalizacaoList(ListView):
+#     model = LocalizacaoEvento
+#     template_name = 'paginas/listas/localizacao.html'
 
-class PerfilList(ListView):
-    model = Perfil
-    template_name = 'paginas/listas/tipo-evento.html'
+# class PerfilList(ListView):
+#     model = Perfil
+#     template_name = 'paginas/listas/tipo-evento.html'
 
-class FuncionarioList(ListView):
-    model = Funcionario
-    template_name = 'paginas/listas/tipo-evento.html'
+# class FuncionarioList(ListView):
+#     model = Funcionario
+#     template_name = 'paginas/listas/tipo-evento.html'
 
-class EventoList(ListView):
-    model = Evento
-    template_name = 'paginas/listas/tipo-evento.html'
+# class EventoList(ListView):
+#     model = Evento
+#     template_name = 'paginas/listas/tipo-evento.html'
 
-class OrcamentoList(ListView):
-    model = Orcamento
-    template_name = 'paginas/listas/tipo-evento.html'
+# class OrcamentoList(ListView):
+#     model = Orcamento
+#     template_name = 'paginas/listas/tipo-evento.html'
     
 ############################################################################################################################################################
 
 class TipoEventoList(LoginRequiredMixin, ListView):
     model = TipoEvento
-    template_name = 'tipoEvento.html'
+    template_name = 'paginas/listas/tipo-evento.html'
 
 
 class LocalizacaoList(LoginRequiredMixin, ListView):
     model = LocalizacaoEvento
-    template_name = 'localizacao.html'
+    template_name = 'paginas/listas/localizacao.html'
 
 
 class PerfilList(LoginRequiredMixin, ListView):
     model = Perfil
-    template_name = 'perfil.html'
+    template_name = 'paginas/listas/perfil.html'
 
 class FuncionarioList(LoginRequiredMixin, ListView):
     model = Funcionario
-    template_name = 'funcionario.html'
+    template_name = 'paginas/listas/funcionario.html'
 
     
 class EventoList(LoginRequiredMixin, ListView):
     model = Evento
-    template_name = 'evento.html'
+    template_name = 'paginas/listas/evento.html'
 
 class MeuEvento(EventoList):
     
