@@ -21,11 +21,14 @@ class CadastroUsuarioView(CreateView):
     success_url = reverse_lazy('login')
     extra_context = {
         'titulo': 'Cadastro de Usuário',
-        'botão': 'Registrar',
+        'botao': 'Registrar',
     }
 
 
     def form_valid(self, form):
+        nome = form.cleaned_data["nome"]
+        telefone = form.cleaned_data["telefone"]
+
         # Faz o comportamento padrão do form_valid
         url = super().form_valid(form)
         # Busca ou cria um grupo com esse nome
@@ -34,7 +37,7 @@ class CadastroUsuarioView(CreateView):
         self.object.groups.add(grupo)
 
         # Criar um perfil pra esse usuário
-        Perfil.objects.create(usuario = self.object)
+        Perfil.objects.create(usuario = self.object, nome = nome, telefone = telefone)
 
         # Retorna a URL de sucesso
         return url
@@ -54,7 +57,7 @@ class TipoEventoCreate(LoginRequiredMixin, CreateView):
     fields = ['nome']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Cadastrar Tipo De Evento',
-                     'botão' : 'Cadastrar',}
+                     'botao' : 'Cadastrar',}
     
 
 class LocalizacaoCreate(LoginRequiredMixin, CreateView):
@@ -63,7 +66,7 @@ class LocalizacaoCreate(LoginRequiredMixin, CreateView):
     fields = ['nome' , 'endereco', 'capacidade_maxima']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Cadastrar Localização', 
-                     'botão' : 'Cadastrar',}
+                     'botao' : 'Cadastrar',}
     
  
 class PerfilCreate(LoginRequiredMixin, CreateView):
@@ -72,16 +75,16 @@ class PerfilCreate(LoginRequiredMixin, CreateView):
     fields = ['nome','cpf','telefone', 'endereco']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Cadastrar Perfil',
-                     'botão' : 'Cadastrar',}
+                     'botao' : 'Cadastrar',}
     
 
 class FuncionarioCreate(LoginRequiredMixin, CreateView):
     template_name = 'paginas/form.html'
     model = Funcionario
-    fields = ['nome','cargo']
+    fields = ['nome','cargo', 'usuario']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Cadastrar Funcionario',
-                     'botão' : 'Cadastrar',}
+                     'botao' : 'Cadastrar',}
     
 
 class EventoCreate(LoginRequiredMixin, CreateView):
@@ -90,7 +93,8 @@ class EventoCreate(LoginRequiredMixin, CreateView):
     fields = ['nome','tipo_evento', 'data_evento', 'descricao']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Cadastrar Evento',
-                     'botão' : 'Cadastrar',}
+                     'botao' : 'Cadastrar',}
+    
     def form_valid(self,form):
         form.instance.cadastrado_por = self.request.user
         url = super().form_valid(form)
@@ -105,7 +109,7 @@ class OrcamentoCreate(LoginRequiredMixin, CreateView):
     fields = ['valor_previsto','valor_real', 'despesas', 'evento', 'concluido']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Cadastrar Evento',
-                     'botão' : 'Cadastrar',}
+                     'botao' : 'Cadastrar',}
     
 
     ##################################################################################
@@ -117,7 +121,7 @@ class TipoEventoUpdate(UpdateView):
     fields = ['nome']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Editar o Tipo de Evento',
-                     'botão' : 'Editar',}
+                     'botao' : 'Editar',}
     
 class LocalizacaoUpdate(UpdateView):
     template_name = 'paginas/form.html'
@@ -125,7 +129,7 @@ class LocalizacaoUpdate(UpdateView):
     fields = ['nome' , 'endereco', 'capacidade_maxima']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Editar Localização',
-                     'botão' : 'Editar',}
+                     'botao' : 'Editar',}
  
     
 class PerfilUpdate(UpdateView):
@@ -134,15 +138,16 @@ class PerfilUpdate(UpdateView):
     fields = ['nome','cpf','telefone', 'endereco']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Editar Perfil',
-                     'botão' : 'Editar',}
+                     'botao' : 'Editar',}
+  
     
 class FuncionarioUpdate(UpdateView):
     template_name = 'paginas/form.html'
     model = Funcionario
-    fields = ['nome','cargo']
+    fields = ['nome','cargo', 'usuario']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Editar Funcionario',
-                     'botão' : 'Editar',}
+                     'botao' : 'Editar',}
 
 class EventoUpdate(UpdateView):
     template_name = 'paginas/form.html'
@@ -150,13 +155,10 @@ class EventoUpdate(UpdateView):
     fields = ['nome','tipo_evento', 'data_evento', 'descricao']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Editar Evento',
-                     'botão' : 'Editar',}
-    
-    #Alterar o metodo q busca o objeto pelo ID(get_object)
+                     'botao' : 'Editar',}
+   
     def get_object(self, queryset =None):
-    #get_object_or_404 - busca o objeto ou retorna 404
         obj = get_object_or_404(Evento, pk=self.kwargs['pk'], evento_por=self.request.user)
-
         return obj
 
 
@@ -166,7 +168,7 @@ class OrcamentoUpdate(UpdateView):
     fields = ['valor_previsto','valor_real', 'despesas', 'evento', 'concluido']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Editar Evento',
-                     'botão' : 'Editar',}
+                     'botao' : 'Editar',}
 
  #####################################################################
  
@@ -189,6 +191,9 @@ class PerfilDelete(DeleteView):
     success_url = reverse_lazy('index')
     extra_context = {'deletar':True, 'titulo': 'Deletar XXXX'}
     
+    # def get_object(self, queryset =None):
+    #     obj = get_object_or_404(Perfil, pk=self.kwargs['pk'], evento_por=self.request.user)
+    #     return obj
 class FuncionarioDelete(DeleteView):
     template_name = 'paginas/form.html'
     model = Funcionario

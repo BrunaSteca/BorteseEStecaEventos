@@ -8,7 +8,9 @@
 <table class="table table-striped">
 
     <tr>
-        <th>Perfil</th>
+        <th>Nome</th>
+        <th>Fone</th>
+        <th>Usuário</th>
         <th>Opçoes</th>
         
     </tr>
@@ -16,6 +18,8 @@
     {% for obj in object_list %}
     <tr>
         <td>{{ obj.nome }}</td>
+        <td>{{ obj.telefone }}</td>
+        <td>{{ obj.usuario }}</td>
 
         <td>
             <a href="{% url "editar-perfil" obj.pk %}" class="btn btn-sm btn-primary">Editar</a>

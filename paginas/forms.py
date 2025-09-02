@@ -7,7 +7,8 @@ from django.contrib.auth.models import User
 from django import forms
 class UsuarioCadastroForm(UserCreationForm):
 
-
+    nome = forms.CharField(required=True)
+    telefone = forms.CharField(required=True)
     email = forms.EmailField(required=True, help_text="Informe um email válido.")
 
 
@@ -15,7 +16,7 @@ class UsuarioCadastroForm(UserCreationForm):
     class Meta:
         model = User
         # Esses dois passwords são para verificar se as senhas são iguais
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['nome', 'telefone', 'username', 'email', 'password1', 'password2']
 
 
     # O metodo clean no forms serve de validação para os campos
