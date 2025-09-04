@@ -158,7 +158,7 @@ class EventoUpdate(UpdateView):
                      'botao' : 'Editar',}
    
     def get_object(self, queryset =None):
-        obj = get_object_or_404(Evento, pk=self.kwargs['pk'], evento_por=self.request.user)
+        obj = get_object_or_404(Evento, pk=self.kwargs['pk'], cadastrado_por=self.request.user)
         return obj
 
 
@@ -209,7 +209,7 @@ class EventoDelete(DeleteView):
      #Alterar o metodo q busca o objeto pelo ID(get_object)
     def get_object(self, queryset =None):
     #get_object_or_404 - busca o objeto ou retorna 404
-        obj = get_object_or_404(Evento, pk=self.kwargs['pk'], evento_por=self.request.user)
+        obj = get_object_or_404(Evento, pk=self.kwargs['pk'], cadastrado_por=self.request.user)
 
         return obj
 
@@ -274,7 +274,7 @@ class EventoList(LoginRequiredMixin, ListView):
 class MeuEvento(EventoList):
     
     def get_queryset(self):
-       qs = Evento.objects.filter(evento_por=self.request.user)
+       qs = Evento.objects.filter(cadastrado_por=self.request.user)
        return qs
     #Como fazer consultar/filtros no Django
     #Classe.objects.all() #Retorna todos os objetos
@@ -283,48 +283,48 @@ class MeuEvento(EventoList):
        
 class OrcamentoList(LoginRequiredMixin, ListView):
     model = Orcamento
-    template_name = 'orcamento.html'
+    template_name = 'paginas/listas/orcamento.html'
 
 #############################################################################################################################################################
 
-class TipoEventoView(SuccessMessageMixin, CreateView):
-    model = TipoEvento
-    fields = ['nome']
-    success_url = '/alunos/'
-    success_message = "Tipo do evento criado com sucesso!"
+# class TipoEventoView(SuccessMessageMixin, CreateView):
+#     model = TipoEvento
+#     fields = ['nome']
+#     success_url = '/alunos/'
+#     success_message = "Tipo do evento criado com sucesso!"
 
 
-class LocalizacaoView(SuccessMessageMixin, CreateView):
-    model = LocalizacaoEvento
-    fields = ['nome' , 'endereco', 'capacidade_maxima']
-    success_url = '/alunos/'
-    success_message = "Localização criada com sucesso!"
+# class LocalizacaoView(SuccessMessageMixin, CreateView):
+#     model = LocalizacaoEvento
+#     fields = ['nome' , 'endereco', 'capacidade_maxima']
+#     success_url = '/alunos/'
+#     success_message = "Localização criada com sucesso!"
 
 
-class PerfilView(SuccessMessageMixin, CreateView):
-    model = Perfil
-    fields = ['nome','cpf','telefone', 'endereco']
-    success_url = '/alunos/'
-    success_message = "Perfil criado com sucesso!"
+# class PerfilView(SuccessMessageMixin, CreateView):
+#     model = Perfil
+#     fields = ['nome','cpf','telefone', 'endereco']
+#     success_url = '/alunos/'
+#     success_message = "Perfil criado com sucesso!"
 
-class FuncionarioView(SuccessMessageMixin, CreateView):
-    model = Funcionario
-    fields = ['nome','cargo']
-    success_url = '/alunos/'
-    success_message = "Funcionario criado com sucesso!"
+# class FuncionarioView(SuccessMessageMixin, CreateView):
+#     model = Funcionario
+#     fields = ['nome','cargo']
+#     success_url = '/alunos/'
+#     success_message = "Funcionario criado com sucesso!"
 
     
-class EventoView(SuccessMessageMixin, CreateView):
-    model = Evento
-    fields = ['nome','cargo']
-    success_url = '/alunos/'
-    success_message = "Evento criado com sucesso!"
+# class EventoView(SuccessMessageMixin, CreateView):
+#     model = Evento
+#     fields = ['nome','cargo']
+#     success_url = '/alunos/'
+#     success_message = "Evento criado com sucesso!"
 
        
-class OrcamentoView(SuccessMessageMixin, CreateView):
-    model = Orcamento
-    fields =  ['valor_previsto','valor_real', 'despesas', 'evento', 'concluido']
-    success_url = '/alunos/'
-    success_message = "Orçamento criado com sucesso!"
+# class OrcamentoView(SuccessMessageMixin, CreateView):
+#     model = Orcamento
+#     fields =  ['valor_previsto','valor_real', 'despesas', 'evento', 'concluido']
+#     success_url = '/alunos/'
+#     success_message = "Orçamento criado com sucesso!"
 
 

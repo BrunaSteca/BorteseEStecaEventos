@@ -12,12 +12,12 @@
         <th>Opções</th>
     </tr>
 
-    {% for obj in object_list %}
+    {% for orcamento in object_list %}
     <tr>
         <td>{{ obj.nome }}</td>
         <td>
-            <a href="{% url "editar-orcamento" obj.pk %}" class="btn btn-sm btn-primary">Editar</a>
-            <a href="{% url "deletar-orcamento" obj.pk %}" class="btn btn-sm btn-danger">Deletar</a>
+            <a href="{% url "editar-orcamento" orcamento.pk %}" class="btn btn-sm btn-primary">Editar</a>
+            <a href="{% url "deletar-orcamento" orcamento.pk %}" class="btn btn-sm btn-danger">Deletar</a>
         </td>
     </tr>
     {% empty %}

@@ -41,11 +41,11 @@ urlpatterns = [
 
    path('adicionar/tipo-evento', TipoEventoCreate.as_view(), name = "inserir-tipo"), 
    path('adicionar/localizacao-evento', LocalizacaoCreate.as_view(), name = 'inserir-localizacao'),
-#    path('adicionar/perfil',PerfilCreate.as_view(), name = 'inserir-perfil'),
+   #path('adicionar/perfil',PerfilCreate.as_view(), name = 'inserir-perfil'),
    path('adicionar/funcionario',FuncionarioCreate.as_view(), name = 'inserir-funcionario'),
    path('adicionar/evento',EventoCreate.as_view(), name = 'inserir-evento'),
    path('adicionar/orcamento',OrcamentoCreate.as_view(), name = 'inserir-orcamento'),
-
+   
 
 
    path("editar/tipo-evento/<int:pk>/", TipoEventoUpdate.as_view(), name = "editar-tipo"), 

@@ -12,12 +12,12 @@
         <th>Opções</th>
     </tr>
 
-    {% for obj in object_list %}
+    {% for tipoEvento in object_list %}
     <tr>
-        <td>{{ obj.nome }}</td>
+        <td>{{ tipoEvento.nome }}</td>
         <td>
-            <a href="{% url "editar-tipo" tipo.pk %}" class="btn btn-sm btn-primary">Editar</a>
-            <a href="{% url "deletar-tipo" tipo.pk %}" class="btn btn-sm btn-danger">deletar</a>
+            <a href="{% url "editar-tipo" tipoEvento.pk %}" class="btn btn-sm btn-primary">Editar</a>
+            <a href="{% url "deletar-tipo" tipoEvento.pk %}" class="btn btn-sm btn-danger">deletar</a>
         </td>
     </tr>
     {% empty %}
