@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from.models import TipoEvento, LocalizacaoEvento, Perfil, Funcionario, Evento, Orcamento
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from braces.views import GroupRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User, Group
@@ -47,6 +48,12 @@ class CadastroUsuarioView(CreateView):
 
 class Inicio(TemplateView):
     template_name = "paginas/index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)  
+        context["qtde_evento"] = Evento
+
+        return context 
     
 class SobreView(TemplateView):
     template_name = 'paginas/sobre.html'   
@@ -78,7 +85,8 @@ class PerfilCreate(LoginRequiredMixin, CreateView):
                      'botao' : 'Cadastrar',}
     
 
-class FuncionarioCreate(LoginRequiredMixin, CreateView):
+class FuncionarioCreate( GroupRequiredMixin, CreateView):
+    group_required = ["Administrador"]
     template_name = 'paginas/form.html'
     model = Funcionario
     fields = ['nome','cargo', 'usuario']
@@ -103,7 +111,8 @@ class EventoCreate(LoginRequiredMixin, CreateView):
         
 
 
-class OrcamentoCreate(LoginRequiredMixin, CreateView):
+class OrcamentoCreate(GroupRequiredMixin, CreateView):
+    group_required = ["Administrador"]
     template_name = 'paginas/form.html'
     model = Orcamento
     fields = ['valor_previsto','valor_real', 'despesas', 'evento', 'concluido']
@@ -132,7 +141,8 @@ class LocalizacaoUpdate(UpdateView):
                      'botao' : 'Editar',}
  
     
-class PerfilUpdate(UpdateView):
+class PerfilUpdate(GroupRequiredMixin,UpdateView):
+    group_required = ["Administrador"]
     template_name = 'paginas/form.html'
     model = Perfil
     fields = ['nome','cpf','telefone', 'endereco']
@@ -141,7 +151,8 @@ class PerfilUpdate(UpdateView):
                      'botao' : 'Editar',}
   
     
-class FuncionarioUpdate(UpdateView):
+class FuncionarioUpdate(GroupRequiredMixin, UpdateView):
+    group_required = ["Administrador"]
     template_name = 'paginas/form.html'
     model = Funcionario
     fields = ['nome','cargo', 'usuario']
@@ -149,7 +160,8 @@ class FuncionarioUpdate(UpdateView):
     extra_context = {'titulo' : 'Editar Funcionario',
                      'botao' : 'Editar',}
 
-class EventoUpdate(UpdateView):
+class EventoUpdate(GroupRequiredMixin, UpdateView):
+    group_required = ["Administrador"]
     template_name = 'paginas/form.html'
     model = Evento
     fields = ['nome','tipo_evento', 'data_evento', 'descricao']
@@ -162,7 +174,8 @@ class EventoUpdate(UpdateView):
         return obj
 
 
-class OrcamentoUpdate(UpdateView):
+class OrcamentoUpdate(GroupRequiredMixin, UpdateView):
+    group_required = ["Administrador"]
     template_name = 'paginas/form.html'
     model = Orcamento
     fields = ['valor_previsto','valor_real', 'despesas', 'evento', 'concluido']
@@ -172,20 +185,21 @@ class OrcamentoUpdate(UpdateView):
 
  #####################################################################
  
-class TipoEventoDelete(DeleteView):
+class TipoEventoDelete(LoginRequiredMixin, DeleteView):
     template_name = 'paginas/form.html'
     model = TipoEvento
     success_url = reverse_lazy('listar')
     extra_context = {'deletar':True, 'titulo': 'Deletar XXXX'}
     
-class LocalizacaoDelete(DeleteView):
+class LocalizacaoDelete(LoginRequiredMixin, DeleteView):
     template_name = 'paginas/form.html'
     model = LocalizacaoEvento
     success_url = reverse_lazy('index')
     extra_context = {'deletar':True, 'titulo': 'Deletar XXXX'}
     
     
-class PerfilDelete(DeleteView):
+class PerfilDelete( GroupRequiredMixin, DeleteView):
+    group_required = ["Administrador"]
     template_name = 'paginas/form.html'
     model = Perfil
     success_url = reverse_lazy('index')
@@ -194,13 +208,15 @@ class PerfilDelete(DeleteView):
     # def get_object(self, queryset =None):
     #     obj = get_object_or_404(Perfil, pk=self.kwargs['pk'], evento_por=self.request.user)
     #     return obj
-class FuncionarioDelete(DeleteView):
+class FuncionarioDelete(GroupRequiredMixin, DeleteView):
+    group_required = ["Administrador"]
     template_name = 'paginas/form.html'
     model = Funcionario
     success_url = reverse_lazy('index')
     extra_context = {'deletar':True, 'titulo': 'Deletar XXXX'}
     
-class EventoDelete(DeleteView):
+class EventoDelete(GroupRequiredMixin,DeleteView):
+    group_required = ["Administrador"]
     template_name = 'paginas/form.html'
     model = Evento
     success_url = reverse_lazy('index')
@@ -214,7 +230,8 @@ class EventoDelete(DeleteView):
         return obj
 
     
-class OrcamentoDelete(DeleteView):
+class OrcamentoDelete(GroupRequiredMixin, DeleteView):
+    group_required = ["Administrador"]
     template_name = 'paginas/form.html'
     model = Orcamento
     success_url = reverse_lazy('index')
@@ -270,6 +287,9 @@ class FuncionarioList(LoginRequiredMixin, ListView):
 class EventoList(LoginRequiredMixin, ListView):
     model = Evento
     template_name = 'paginas/listas/evento.html'
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)
 
 class MeuEvento(EventoList):
     
