@@ -1,4 +1,3 @@
-
 from django.urls import path
 from .views import Inicio, SobreView
 from .views import TipoEventoCreate, LocalizacaoCreate, PerfilCreate, FuncionarioCreate, EventoCreate, OrcamentoCreate
@@ -8,7 +7,36 @@ from .views import TipoEventoList, LocalizacaoList, PerfilList, FuncionarioList,
 from django.contrib.auth import views as auth_views
 from .views import CadastroUsuarioView
 from .views import MeuEvento
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Evento, Funcionario
 
+# trecho de JavaScript simples — pode ser inserido em templates quando necessário:
+# Exemplo de uso no template Django: {{ JS_SNIPPET|safe }}
+JS_SNIPPET = """
+<script>
+	// JS adicionado dinamicamente pelo módulo paginas.urls
+	console.log("JavaScript inserido: paginas.urls JS_SNIPPET carregado");
+	// Função de utilidade rápida
+	function pingServidor(){ console.log("ping"); }
+</script>
+"""
+
+# view rápida para deletar evento via GET/POST e redirecionar para listagem
+@login_required
+def deletar_evento_fast(request, pk):
+	# ...pode adicionar checagem de proprietário se necessário...
+	evento = get_object_or_404(Evento, pk=pk)
+	evento.delete()
+	return redirect('listar-evento')
+
+# view rápida para deletar funcionário via GET/POST e redirecionar para listagem
+@login_required
+def deletar_funcionario_fast(request, pk):
+	# ...adicione verificação de permissão/dono se necessário...
+	func = get_object_or_404(Funcionario, pk=pk)
+	func.delete()
+	return redirect('listar-funcionario')
 
 urlpatterns = [
 
@@ -60,8 +88,8 @@ urlpatterns = [
    path("deletar/tipo-evento/<int:pk>/", TipoEventoDelete.as_view(), name = "deletar-tipo"), 
    path("deletar/localizacao-evento/<int:pk>/", LocalizacaoDelete.as_view(), name = 'deletar-localizacao'),
    path("deletar/perfil/<int:pk>/", PerfilDelete.as_view(), name= 'deletar-perfil'),
-   path("deletar/funcionario/<int:pk>/", FuncionarioDelete.as_view(),  name = 'deletar-funcionario'),
-   path("deletar/evento/<int:pk>/", EventoDelete.as_view(), name = 'deletar-evento'),
+   path("deletar/funcionario/<int:pk>/", deletar_funcionario_fast,  name = 'deletar-funcionario'),
+   path("deletar/evento/<int:pk>/", deletar_evento_fast, name = 'deletar-evento'),
    path("deletar/orcamento/<int:pk>/", OrcamentoDelete.as_view(), name = 'deletar-orcamento'),
 
    path("listar/tipo-evento/", TipoEventoList.as_view(), name = "listar-tipo-evento"),
