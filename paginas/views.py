@@ -9,6 +9,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User, Group
 from .forms import UsuarioCadastroForm
 from django.shortcuts import get_object_or_404
+from django.http import Http404
 
 
 
@@ -170,8 +171,15 @@ class EventoUpdate(GroupRequiredMixin, UpdateView):
                      'botao' : 'Editar',}
    
     def get_object(self, queryset =None):
-        obj = get_object_or_404(Evento, pk=self.kwargs['pk'], cadastrado_por=self.request.user)
-        return obj
+        """Busca o objeto a partir do pk da URL. Se não existir, lança Http404 com mensagem clara."""
+        queryset = queryset or self.get_queryset()
+        pk = self.kwargs.get(self.pk_url_kwarg or "pk")
+        try:
+            return get_object_or_404(queryset, pk=pk)
+        except Http404:
+            # Mensagem em português mais informativa
+            raise Http404(f"Evento não encontrado (id={pk}). Verifique se o registro existe.")
+        
 
 
 class OrcamentoUpdate(GroupRequiredMixin, UpdateView):
